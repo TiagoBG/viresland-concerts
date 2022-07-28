@@ -5,7 +5,7 @@ import Sidebar from './Sidebar'
 export default function Layout({children}:any) {
   return (
   <div className='h-screen flex flex-row justify-start'>
-    <Sidebar/>
+    {/* <Sidebar/> */}
     <main className="bg-primary flex-1 p-4 text-white">{children}</main>
   </div>
   )

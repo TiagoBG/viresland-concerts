@@ -10,7 +10,7 @@ module.exports = {
   important: true,
   theme: {
     ...defaultTheme,
-    colors: {
+    /* colors: {
       ...defaultTheme.colors,
       primary: '#3B81F6',
       white: '#FFF',
@@ -22,8 +22,10 @@ module.exports = {
         DEFAULT: "#FAFBFC",
         lighter: "#F3F4F6"
       }
-    },
+    }, */
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms'),
+  ],
 }
