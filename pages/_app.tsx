@@ -1,3 +1,4 @@
+/* eslint-disable sort-imports */
 import Layout from '@/components/Layout/Layout'
 import '@/styles/global.css'
 import type { AppProps } from 'next/app'

@@ -1,10 +1,10 @@
 
-function LogoutIcon({ fill = "#6C7281", ...rest }) {
+function LogoutIcon({ fill = '#6C7281', ...rest }) {
   return (
     <svg
-      width={16}
-      height={19}
       fill="none"
+      height={19}
+      width={16}
       xmlns="http://www.w3.org/2000/svg"
       {...rest}
     >
@@ -14,7 +14,7 @@ function LogoutIcon({ fill = "#6C7281", ...rest }) {
       />
       <path d="M7 0h2v10H7V0z" fill={fill} />
     </svg>
-  );
+  )
 }
 
-export default LogoutIcon;
+export default LogoutIcon

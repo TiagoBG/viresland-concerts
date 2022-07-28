@@ -1,10 +1,10 @@
 
-function CollapseIcon({ fill = "#6C7281", ...rest }) {
+function CollapseIcon({ fill = '#6C7281', ...rest }) {
   return (
     <svg
-      width={16}
-      height={15}
       fill="none"
+      height={15}
+      width={16}
       xmlns="http://www.w3.org/2000/svg"
       {...rest}
     >
@@ -17,7 +17,7 @@ function CollapseIcon({ fill = "#6C7281", ...rest }) {
         fill={fill}
       />
     </svg>
-  );
+  )
 }
 
-export default CollapseIcon;
+export default CollapseIcon
