@@ -1,4 +1,4 @@
-import ShowsList from "@/components/shows/ShowsList"
+import ShowsList from '@/components/shows/ShowsList'
 
 function Shows() {
   return (
