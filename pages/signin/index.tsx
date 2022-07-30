@@ -1,11 +1,9 @@
-import SignInForm from '@/components/signin/Signin'
-import React from 'react'
+import SignInForm from '@/components/auth/Signin'
 
-const SignInPage = () => {
+function SignInPage() {
   return (
     <div>
-        <h1>SignInPage</h1>
-        <SignInForm/>
+      <SignInForm />
     </div>
   )
 }

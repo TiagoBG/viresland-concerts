@@ -12,6 +12,7 @@ CREATE TABLE users(
     id SERIAL NOT NULL,
     username VARCHAR(30) NOT NULL,
     lastname VARCHAR(30) NOT NULL,
+    city VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL,
     user_password VARCHAR(30) NOT NULL,
     PRIMARY KEY(id)
@@ -61,10 +62,10 @@ CREATE TABLE reservations(
     FOREIGN KEY(id_show) REFERENCES shows(id)
     );
 
-INSERT INTO users (username, lastname, email, user_password) VALUES
-('Aria', 'Montgomery', 'aria@test.com', 'AriaMont11@');
-INSERT INTO users (username, lastname, email, user_password) VALUES
-('Ezra', 'Fitz', 'ezra@test.com', 'Fitzra14#');
+INSERT INTO users (username, lastname, email, city, user_password) VALUES
+('Aria', 'Montgomery', 'aria@test.com', 'Rosewood', 'AriaMont11@');
+INSERT INTO users (username, lastname, email, city, user_password) VALUES
+('Ezra', 'Fitz', 'ezra@test.com', 'Rosewood', 'Fitzra14#');
 
 INSERT INTO music_venue (venue_name, city, country, capacity) VALUES
 ('Royal Albert Hall', 'London', 'UK', 5272);

@@ -5,7 +5,7 @@ import styles from '@/pages/index.module.css'
 
 export default function Footer() {
   return (
-    <footer className={styles.footer}>
+    <footer className="bg-gray-800 text-white m-auto h-16">
       <a
         href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
         rel="noopener noreferrer"

@@ -7,30 +7,36 @@
 /* eslint-disable sort-keys */
 /* eslint-disable sort-imports */
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+import LongLogo from '../../public/assets/images/VConcertsLong.png'
+import Logo from '../../public/assets/images/VConcerts.png'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 
-const navigation = [
-  { name: 'Viresland Concerts',
-    href: '#',
-    current: true },
-  { name: 'Shows',
-    href: '#',
-    current: false },
-  { name: 'Bands',
-    href: '#',
-    current: false },
-  { name: 'Calendar',
-    href: '#',
-    current: false }
-]
 
 function classNames(...classes : any) {
   return classes.filter(Boolean).join(' ')
 }
 
 export default function Navbar() {
+  const router = useRouter()
+
+
+  const navigation = [
+    { name: 'Shows',
+      href: '/shows',
+      current: router.pathname === '/shows' },
+    { name: 'Bands',
+      href: '/bands',
+      current: router.pathname === '/bands' },
+    { name: 'Sign In',
+      href: '/signin',
+      current: router.pathname === '/signin' }
+  ]
+
+
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
@@ -50,31 +56,35 @@ export default function Navbar() {
               </div>
               <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex-shrink-0 flex items-center">
-                  <img
-                    alt="Workflow"
-                    className="block lg:hidden h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
-                  />
-                  <img
-                    alt="Workflow"
-                    className="hidden lg:block h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
-                  />
+                  <Link href="/">
+                    <img
+                      alt="Viresland Concerts"
+                      className="block lg:hidden h-8 w-20 cursor-pointer"
+                      src={Logo.src}
+                    />
+                  </Link>
+                  <Link href="/">
+                    <img
+                      alt="Viresland Concerts"
+                      className="hidden lg:block h-8 w-48 cursor-pointer"
+                      src={LongLogo.src}
+                      width="300px"
+                    />
+                  </Link>
                 </div>
                 <div className="hidden sm:block sm:ml-6">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
-                      <a
-                        aria-current={item.current ? 'page' : undefined}
-                        className={classNames(
-                          item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                          'px-3 py-2 rounded-md text-sm font-medium'
-                        )}
-                        href={item.href}
-                        key={item.name}
-                      >
-                        {item.name}
-                      </a>
+                      <Link href={item.href} key={item.name}>
+                        <p
+                          aria-current={item.current ? 'page' : undefined}
+                          className={classNames(
+                            item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                            'px-3 py-2 rounded-md text-sm font-medium cursor-pointer'
+                          )}
+                        >{item.name}
+                        </p>
+                      </Link>
                     ))}
                   </div>
                 </div>
