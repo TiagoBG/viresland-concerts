@@ -6,7 +6,7 @@ function SignInForm() {
   const signinHandler = (data: any) => {
     axios.post('/api/users', data).
       then((res) => {
-        console.log(res)
+        console.log(res, 'axios')
       }).
       catch((err) => console.log(err))
   }
@@ -50,13 +50,13 @@ function SignInForm() {
                   </div>
 
                   <div className="col-span-6 sm:col-span-4">
-                    <label className="block text-sm font-medium text-gray-700" htmlFor="email-address">Address</label>
+                    <label className="block text-sm font-medium text-gray-700" htmlFor="email-address">Email</label>
                     <input
-                      autoComplete="address"
+                      autoComplete="email"
                       className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                      id="address"
+                      id="email"
                       type="text"
-                      {...register('address')}
+                      {...register('email')}
                     />
                   </div>
                   <div className="col-span-6 sm:col-span-2">
@@ -77,7 +77,7 @@ function SignInForm() {
                       className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       id="password"
                       type="password"
-                      {...register('password')}
+                      {...register('user_password')}
                     />
                   </div>
 

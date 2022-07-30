@@ -1,6 +1,16 @@
-import React from 'react'
+import axios from 'axios'
+import { useEffect } from 'react'
 
 function ShowsList() {
+
+  useEffect(() => {
+    axios.get('/api/shows').
+      then((res) => {
+        console.log(res)
+      }).
+      catch((err) => console.log(err))
+  }, [])
+
   return (
     <div>ShowsList</div>
   )

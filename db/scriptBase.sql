@@ -1,9 +1,9 @@
 CREATE DATABASE viresland_concerts;
 USE viresland_concerts;
 
+DROP TABLE IF EXISTS reservations;
 DROP TABLE IF EXISTS shows;
 DROP TABLE IF EXISTS bands;
-DROP TABLE IF EXISTS reservations;
 DROP TABLE IF EXISTS bands_images;
 DROP TABLE IF EXISTS music_venue;
 DROP TABLE IF EXISTS users;
@@ -15,6 +15,7 @@ CREATE TABLE users(
     city VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL,
     user_password VARCHAR(30) NOT NULL,
+    confirm_password VARCHAR(30) NOT NULL,
     PRIMARY KEY(id)
 );
 
@@ -43,8 +44,8 @@ CREATE TABLE bands(
 
 CREATE TABLE shows(
     id SERIAL NOT NULL,
-    id_band BIGINT UNSIGNED NOT NULL,
-    id_music_venue BIGINT UNSIGNED NOT NULL,
+    id_band BIGINT NOT NULL,
+    id_music_venue BIGINT NOT NULL,
     show_date DATE NOT NULL,
     available_seats INT NOT NULL,
     PRIMARY KEY(id),
@@ -54,18 +55,18 @@ CREATE TABLE shows(
 
 CREATE TABLE reservations(
     id SERIAL NOT NULL,
-    id_user BIGINT UNSIGNED NOT NULL,
-    id_show BIGINT UNSIGNED NOT NULL,
+    id_user BIGINT NOT NULL,
+    id_show BIGINT NOT NULL,
     tickets_amount INT NOT NULL,
     PRIMARY KEY(id),
     FOREIGN KEY(id_user) REFERENCES users(id),
     FOREIGN KEY(id_show) REFERENCES shows(id)
     );
 
-INSERT INTO users (username, lastname, email, city, user_password) VALUES
-('Aria', 'Montgomery', 'aria@test.com', 'Rosewood', 'AriaMont11@');
-INSERT INTO users (username, lastname, email, city, user_password) VALUES
-('Ezra', 'Fitz', 'ezra@test.com', 'Rosewood', 'Fitzra14#');
+INSERT INTO users (username, lastname, email, city, user_password, confirm_password) VALUES
+('Aria', 'Montgomery', 'aria@test.com', 'Rosewood', 'AriaMont11@', 'AriaMont11@');
+INSERT INTO users (username, lastname, email, city, user_password, confirm_password) VALUES
+('Ezra', 'Fitz', 'ezra@test.com', 'Rosewood', 'Fitzra14#', 'Fitzra14#');
 
 INSERT INTO music_venue (venue_name, city, country, capacity) VALUES
 ('Royal Albert Hall', 'London', 'UK', 5272);
