@@ -7,9 +7,9 @@
 /* eslint-disable sort-keys */
 /* eslint-disable sort-imports */
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment, useState } from 'react'
+import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import LongLogo from '../../public/assets/images/VConcertsLong.png'
 import Logo from '../../public/assets/images/VConcerts.png'
 import Link from 'next/link'
@@ -90,13 +90,6 @@ export default function Navbar() {
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <button
-                  className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-                  type="button"
-                >
-                  <span className="sr-only">View notifications</span>
-                  <BellIcon aria-hidden="true" className="h-6 w-6" />
-                </button>
 
                 {/* Profile dropdown */}
                 <Menu as="div" className="ml-3 relative">
@@ -128,17 +121,7 @@ export default function Navbar() {
                             className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                             href="#"
                           >
-                            Your Profile
-                          </a>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                            href="#"
-                          >
-                            Settings
+                            Your Reservations
                           </a>
                         )}
                       </Menu.Item>

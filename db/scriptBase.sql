@@ -13,7 +13,7 @@ CREATE TABLE users(
     username VARCHAR(30) NOT NULL,
     lastname VARCHAR(30) NOT NULL,
     city VARCHAR(50) NOT NULL,
-    email VARCHAR(50) NOT NULL,
+    email VARCHAR(50) UNIQUE NOT NULL,
     user_password VARCHAR(30) NOT NULL,
     confirm_password VARCHAR(30) NOT NULL,
     PRIMARY KEY(id)
@@ -67,6 +67,8 @@ INSERT INTO users (username, lastname, email, city, user_password, confirm_passw
 ('Aria', 'Montgomery', 'aria@test.com', 'Rosewood', 'AriaMont11@', 'AriaMont11@');
 INSERT INTO users (username, lastname, email, city, user_password, confirm_password) VALUES
 ('Ezra', 'Fitz', 'ezra@test.com', 'Rosewood', 'Fitzra14#', 'Fitzra14#');
+/* INSERT INTO users (username, lastname, email, city, user_password, confirm_password) VALUES
+('Hanna', 'Marin', 'aria@test.com', 'Rosewood', 'HanBan@', 'HanBan@'); */
 
 INSERT INTO music_venue (venue_name, city, country, capacity) VALUES
 ('Royal Albert Hall', 'London', 'UK', 5272);
