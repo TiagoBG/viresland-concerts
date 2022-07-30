@@ -1,7 +1,10 @@
+import ShowsList from "@/components/shows/ShowsList"
 
 function Shows() {
   return (
-    <div>index</div>
+    <div>
+      <ShowsList />
+    </div>
   )
 }
 
