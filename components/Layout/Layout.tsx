@@ -7,7 +7,7 @@ export default function Layout({ children } : any) {
   return (
     <div className="">
       <Navbar />
-      <main className="bg-[url('../public/assets/images/concertmain.jpg')] bg-cover h-full bg-stone-900 pt-12 h-[calc(80vh)]">{children}</main>
+      <main className="bg-[url('../public/assets/images/concertmain.jpg')] bg-cover h-full bg-stone-900 pt-8">{children}</main>
       <Footer />
     </div>
   )
