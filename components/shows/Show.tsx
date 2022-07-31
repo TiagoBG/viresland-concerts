@@ -25,7 +25,6 @@ function Show({ show }) {
           <p className="">{show.show_date.substring(0, 10)}</p>
         </div>
       </div>
-      <p className="text-center text-base ml-12 mt-3">{show.band_description}</p>
     </div>
   )
 }

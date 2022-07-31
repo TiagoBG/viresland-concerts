@@ -38,6 +38,7 @@ CREATE TABLE music_venue(
 CREATE TABLE bands(
     id SERIAL NOT NULL, 
     band_name VARCHAR(30) UNIQUE NOT NULL,
+    band_category VARCHAR(30) NOT NULL,
     band_description TEXT NOT NULL,
     PRIMARY KEY(id)
 );
@@ -84,14 +85,14 @@ INSERT INTO bands_images (venue_name, city, country, capacity) VALUES
 INSERT INTO bands_images (venue_name, city, country, capacity) VALUES
 ('Radio City Music Hall', 'New York', 'USA', 5960); */
 
-INSERT INTO bands (band_name, band_description) VALUES
-('Coldplay', 'Lorem ipsum dolorem isk fiu rewasd tyio biumiop trelio');
-INSERT INTO bands (band_name, band_description) VALUES
-('The War On Drugs', 'Lorem ipsum dolorem isk fiu rewasd tyio biumiop trelio');
-INSERT INTO bands (band_name, band_description) VALUES
-('Companyon', 'Lorem ipsum dolorem isk fiu rewasd tyio biumiop trelio');
-INSERT INTO bands (band_name, band_description) VALUES
-('Freedom Call', 'Lorem ipsum dolorem isk fiu rewasd tyio biumiop trelio');
+INSERT INTO bands (band_name, band_description, band_category) VALUES
+('Coldplay', 'Is a British rock band formed in London in 1996. They consist of vocalist and pianist Chris Martin, guitarist Jonny Buckland, bassist Guy Berryman, drummer Will Champion and creative director Phil Harvey.', 'Alternaive/Indie');
+INSERT INTO bands (band_name, band_description, band_category) VALUES
+('The War On Drugs', 'Is an American indie rock band from Philadelphia, Pennsylvania, formed in 2005. The band consists of Adam Granduciel (vocals, guitar), David Hartley (bass guitar), Robbie Bennett (keyboards), Charlie Hall (drums), Jon Natchez (saxophone, keyboards), Anthony LaMarca (guitar) and Eliza Hardy Jones (keyboards).', 'Indie Rock');
+INSERT INTO bands (band_name, band_description, band_category) VALUES
+('Companyon', 'Is a band started by frontman Bryan Wehrkamp and brought to life by Jim Joels Jr., Jay Alexander, and Zack Hutchinson. The group brings a high energy performance with hopes of cultivating an atmosphere for the listener in which they might feel all of the feelings.', 'Alternaive/Indie');
+INSERT INTO bands (band_name, band_description, band_category) VALUES
+('Freedom Call', 'Is a German power metal band formed in 1998. The band tours regularly and the current line-up includes two original members including lead vocalist and songwriter, Chris Bay. Freedom Call has released 12 albums in total, nine of these studio albums.', 'Power Metal');
 
 INSERT INTO shows (id_band, id_music_venue, show_date, available_seats) VALUES
 (1, 1, '2022-08-05', 0);
