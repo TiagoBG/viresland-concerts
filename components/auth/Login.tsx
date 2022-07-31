@@ -1,15 +1,40 @@
+/* eslint-disable no-undefined */
+/* eslint-disable no-ternary */
+/* eslint-disable no-undef */
+/* eslint-disable sort-imports */
 import axios from 'axios'
+import Link from 'next/link'
+import { signIn } from 'next-auth/react'
+import Swal from 'sweetalert2'
 import { useForm } from 'react-hook-form'
+import { useRouter } from 'next/router'
 
 function LoginForm() {
   const { register, handleSubmit, watch, formState: { errors } } = useForm()
-  const signinHandler = (data: any) => {
-    axios.post('/api/users', data).
+  const router = useRouter()
+
+  function loginValidation(res: any, data: any) {
+    console.log(res.data.rows.find((item:any) => item.email === data.email), errors)
+    if (res.data.rows.find((item:any) => item.email === data.email) === undefined) {
+      Swal.fire(
+        'Error',
+        'Something went wrong. Please check the credentials and try again later',
+        'error'
+      )
+    } else {
+      router.replace('/shows')
+    }
+  }
+
+  const loginHandler = (data: any) => {
+    console.log('VALIDATION HANDLER');
+    axios.get('/api/getUsers').
       then((res) => {
-        console.log(res)
+        loginValidation(res, data)
       }).
       catch((err) => console.log(err))
   }
+
 
   console.log(watch('example')) // Watch input value by passing the name of it
 
@@ -17,19 +42,19 @@ function LoginForm() {
     <div className="mt-10 sm:-mt-6 md:mt-0 md:max-w-3xl md:m-auto md:mt-8 p-2">
       <div className="md:grid md:grid-cols-2 shadow overflow-hidden sm:rounded-md m-auto">
         <div className="mt-5 md:mt-0">
-          <form onSubmit={handleSubmit(signinHandler)}>
+          <form onSubmit={handleSubmit(loginHandler)}>
             <div className="">
-              <div className="px-4 py-5 bg-white sm:p-6">
-                <h3 className="text-lg font-medium leading-6 text-dark pb-8">Log In</h3>
+              <div className="px-4 pt-4 bg-white sm:p-6">
+                <h3 className="text-lg font-medium leading-6 text-dark pb-8 text-center">Log In</h3>
                 <div className="grid grid-cols-6 gap-8">
                   <div className="col-span-6 sm:col-span-8">
-                    <label className="block text-sm font-medium text-gray-700" htmlFor="first-name">First name</label>
+                    <label className="block text-sm font-medium text-gray-700" htmlFor="first-name">Email</label>
                     <input
-                      autoComplete="given-name"
+                      autoComplete="given-email"
                       className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                      id="name"
-                      type="text"
-                      {...register('username')}
+                      id="login-email"
+                      type="email"
+                      {...register('email')}
                     />
                   </div>
                   <div className="col-span-6 sm:col-span-8">
@@ -42,9 +67,12 @@ function LoginForm() {
                       {...register('password')}
                     />
                   </div>
+                  <div className="col-span-6 sm:col-span-8 text-center">
+                    <p className="text-sm font-medium leading-6 text-dark">Not registered? <span style={{ color: 'blue' }}><Link href="/signin">Sign In</Link></span></p>
+                  </div>
                 </div>
               </div>
-              <div className="px-4 py-3 text-center bg-white sm:px-6">
+              <div className="px-4 pb-3 text-center bg-white sm:px-6">
                 <button className="inline-flex justify-center py-2 px-6 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" type="submit">Let's go!</button>
               </div>
             </div>
