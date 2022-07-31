@@ -9,7 +9,7 @@ export default async (req, res) => {
     res.status(200).json(result)
   } catch (error) {
     res.status(500).json({ state: 0,
-      message: 'Bad',
+      message: 'Something went wrong and we could not get the shows info',
       error })
   }
 }
