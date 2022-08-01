@@ -9,7 +9,10 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx}'
   ],
   important: true,
-  plugins: [require('@tailwindcss/forms')],
+  plugins: [
+    require('@tailwindcss/aspect-ratio'),
+    require('@tailwindcss/forms')
+  ],
   screens: {
     'sm': '320px',
     // => @media (min-width: 640px) { ... }

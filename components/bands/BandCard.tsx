@@ -22,10 +22,10 @@ function BandCard({ artist }) {
   }
 
   return (
-    <div className="rounded-lg overflow-hidden shadow-lg bg-pink-800 bg-opacity-70 my-3 mx-6 text-white md:flex md:flex-row md:w-full lg:w-9/12 ">
+    <div className="rounded-lg overflow-hidden shadow-lg bg-pink-800 bg-opacity-70 my-3 mx-6 text-white md:flex md:flex-row md:w-full lg:w-9/12">
       <img
         alt={artist.band_name}
-        className="w-full md:w-40"
+        className="w-full md:w-48"
         src={imageHandler(artist.band_name)?.src}
       />
       <div>

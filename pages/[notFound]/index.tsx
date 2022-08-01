@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-no-bind */
 import NotFoundImg from '../../public/assets/images/NotFoundVC.png'
 import { useRouter } from 'next/router'
+import Head from 'next/head'
 
 function NotFound() {
   const router = useRouter()
@@ -11,6 +12,9 @@ function NotFound() {
 
   return (
     <div className="mt-10 sm:-mt-6 md:mt-0 md:max-w-4xl md:grid-cols-3 md:m-auto md:mt-8 p-6 bg-gray-900 shadow overflow-hidden sm:rounded-md m-auto bg-opacity-60">
+      <Head>
+        <title>Not Found</title>
+      </Head>
       <div className="md:grid md:grid-cols-2">
         <img alt="NotFoundLogo" src={NotFoundImg.src} width="400px" />
         <div className="">

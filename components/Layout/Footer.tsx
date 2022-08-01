@@ -1,7 +1,5 @@
 /* eslint-disable react/jsx-no-undef */
 import Image from 'next/image'
-import styles from '@/pages/index.module.css'
-
 
 export default function Footer() {
   return (
@@ -12,7 +10,7 @@ export default function Footer() {
         target="_blank"
       >
         Powered by{' '}
-        <span className={styles.logo}>
+        <span>
           <Image
             alt="Vercel Logo"
             height={16}
