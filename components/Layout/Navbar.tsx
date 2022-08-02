@@ -9,27 +9,28 @@
 /* eslint-disable sort-keys */
 /* eslint-disable sort-imports */
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment } from 'react'
+import { Fragment, useContext, useEffect, useState } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import LongLogo from '../../public/assets/images/VConcertsLong.png'
 import Logo from '../../public/assets/images/VConcerts.png'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useSession, signOut } from 'next-auth/react'
-import { useSessionStatus } from '../../utils/userSessionStatus'
-
+import AuthContext from 'context/userAuth'
 
 function classNames(...classes : any) {
   return classes.filter(Boolean).join(' ')
 }
 
 export default function Navbar() {
-  const { isLoading, isLoggedIn } = useSessionStatus()
-  const { data: session } = useSession()
-  const userName = session?.user?.email ?? 'My Profile'
 
+  const {user, logout} = useContext(AuthContext)
   const router = useRouter()
+
+  useEffect(() => {
+    console.log(user)
+  }, [])
+
 
   const navigation = [
     { name: 'Shows',
@@ -42,11 +43,14 @@ export default function Navbar() {
       current: router.pathname === '/bands' },
     { name: 'Log In',
       href: '/login',
-      requireAuth: Boolean(session),
-      current: router.pathname === '/signin' }
+      requireAuth: user !== null,
+      current: router.pathname === '/login' }
   ]
 
-  console.log(Boolean(session))
+  const userSignout = () => {
+    console.log('SIGNING OUTTT')
+  }
+
 
   return (
     <Disclosure as="nav" className="bg-gray-800">
@@ -105,7 +109,7 @@ export default function Navbar() {
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
 
                 {/* Profile dropdown */}
-                {session ? (
+                {user !== null ? (
                   <Menu as="div" className="ml-3 relative">
                     <div>
                       <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
@@ -131,19 +135,20 @@ export default function Navbar() {
                       <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                         <Menu.Item>
                           {({ active }) => (
-                            <a
-                              className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                              href="#"
-                            >
-                              Your Reservations
-                            </a>
+                            <Link href="/user">
+                              <p
+                                className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                              >
+                                Your Reservations
+                              </p>
+                            </Link>
                           )}
                         </Menu.Item>
                         <Menu.Item>
                           {({ active }) => (
                             <button
                               className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                              onClick={() => signOut()}
+                              onClick={logout}
                               type="button"
                             >
                               Sign out

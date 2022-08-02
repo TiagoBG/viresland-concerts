@@ -1,4 +1,4 @@
-import { useSession } from 'next-auth/react'
+/* import { useSession } from 'next-auth/react'
 
 interface SessionStatuses {
   isLoggedIn: boolean;
@@ -13,3 +13,4 @@ export const useSessionStatus = (): SessionStatuses => {
     isLoggedIn: status === 'authenticated'
   }
 }
+ */
