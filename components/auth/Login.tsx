@@ -9,19 +9,29 @@ import Swal from 'sweetalert2'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
 
+import {setToken} from '../../utils/jwtMiddleware'
+import AuthContext from 'context/userAuth'
+import { useContext } from 'react'
+
+
 function LoginForm() {
   const { register, handleSubmit, watch, formState: { errors } } = useForm()
   const router = useRouter()
 
+  const {user, login} = useContext(AuthContext)
+
   function loginValidation(res: any, data: any) {
-    console.log(res.data.rows.find((item:any) => item.email === data.email), errors)
-    if (res.data.rows.find((item:any) => item.email === data.email) === undefined) {
+    const loggedUser = res.data.rows.find((item:any) => item.email === data.email)
+    console.log(loggedUser, errors)
+    if (loggedUser === undefined) {
       Swal.fire(
-        'Error',
-        'Something went wrong. Please check the credentials and try again later',
+        'Something went wrong',
+        'Please check the credentials and try again later',
         'error'
       )
     } else {
+      sessionStorage.setItem('pumpkin', setToken(res.data.rows))
+      login(loggedUser.username, setToken(res.data.rows))
       router.replace('/shows')
     }
   }

@@ -1,15 +1,16 @@
 /* eslint-disable sort-imports */
 import Layout from '@/components/Layout/Layout'
-import { SessionProvider } from 'next-auth/react'
 import '@/styles/global.css'
 import type { AppProps } from 'next/app'
+import { AuthContextProvider } from '../context/userAuth'
 
-export default function VireslandConcerts({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+export default function VireslandConcerts({ Component, pageProps }: AppProps) {
+
   return (
-    <SessionProvider session={session}>
+    <AuthContextProvider>
       <Layout>
         <Component {...pageProps} />
       </Layout>
-    </SessionProvider>
+    </AuthContextProvider>
   )
 }
