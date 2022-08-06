@@ -2,7 +2,6 @@
 import ConcertIcon from '../../public/assets/images/concert.png'
 
 function Show({ show }) {
-  console.log(show)
 
   return (
     <div className="bg-gray-800 bg-opacity-70 text-white w-6/12 m-auto my-3 p-6 rounded-lg">

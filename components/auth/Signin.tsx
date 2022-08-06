@@ -1,14 +1,26 @@
+/* eslint-disable no-negated-condition */
+/* eslint-disable no-ternary */
+/* eslint-disable prefer-named-capture-group */
 import axios from 'axios'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 function SignInForm() {
   const { register, handleSubmit, watch, formState: { errors } } = useForm()
+  const [
+    passwordMatch,
+    setPasswordMatch
+  ] = useState('')
+
   const signinHandler = (data: any) => {
-    axios.post('/api/users', data).
-      then((res) => {
-        console.log(res, 'axios')
-      }).
-      catch((err) => console.log(err))
+    if (data.user_password === data.confirm_password) {
+      setPasswordMatch('Passwords do nor match')
+      axios.post('/api/users', data).
+        then((res) => {
+          console.log(res, 'axios')
+        }).
+        catch((err) => console.log(err))
+    }
   }
 
   console.log(watch('example')) // Watch input value by passing the name of it
@@ -34,8 +46,12 @@ function SignInForm() {
                       className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       id="name"
                       type="text"
-                      {...register('username')}
+                      {...register('username', { pattern: /^[A-Za-z]+$/iu,
+                        required: true })}
                     />
+                    {errors.username
+                      ? <p className="text-red-500 text-xs italic mt-2"> Please type a valid name </p>
+                      : null}
                   </div>
 
                   <div className="col-span-6 sm:col-span-3">
@@ -45,8 +61,12 @@ function SignInForm() {
                       className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       id="lastname"
                       type="text"
-                      {...register('lastname')}
+                      {...register('lastname', { pattern: /^[A-Za-z]+$/iu,
+                        required: true })}
                     />
+                    {errors.lastname
+                      ? <p className="text-red-500 text-xs italic mt-2"> Please type a valid lastname </p>
+                      : null}
                   </div>
 
                   <div className="col-span-6 sm:col-span-4">
@@ -56,8 +76,12 @@ function SignInForm() {
                       className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       id="email"
                       type="text"
-                      {...register('email')}
+                      {...register('email', { pattern: /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/u,
+                        required: true })}
                     />
+                    {errors.email
+                      ? <p className="text-red-500 text-xs italic mt-2"> Please type a valid email </p>
+                      : null}
                   </div>
                   <div className="col-span-6 sm:col-span-2">
                     <label className="block text-sm font-medium text-gray-700" htmlFor="password">City</label>
@@ -66,8 +90,12 @@ function SignInForm() {
                       className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       id="city"
                       type="text"
-                      {...register('city')}
+                      {...register('city', { pattern: /^[A-Za-z]+$/iu,
+                        required: true })}
                     />
+                    {errors.city
+                      ? <p className="text-red-500 text-xs italic mt-2"> Please type a valid city </p>
+                      : null}
                   </div>
 
                   <div className="col-span-6 sm:col-span-3">
@@ -77,8 +105,12 @@ function SignInForm() {
                       className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       id="password"
                       type="password"
-                      {...register('user_password')}
+                      {...register('user_password', { pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/u,
+                        required: true })}
                     />
+                    {errors.user_password
+                      ? <p className="text-red-500 text-xs italic mt-2"> Please type a valid password </p>
+                      : null}
                   </div>
 
                   <div className="col-span-6 sm:col-span-3">
@@ -88,8 +120,17 @@ function SignInForm() {
                       className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       id="password"
                       type="password"
-                      {...register('confirm_password')}
+                      {...register('confirm_password', { required: true,
+                        validate: (value) => console.log(value, ...register) || 'The passwords do not match' })}
                     />
+                    {errors.confirm_password
+                      ? <p className="text-red-500 text-xs italic mt-2"> Passwords do not match. Please type the right password </p>
+                      : null}
+                    {
+                      passwordMatch !== ''
+                        ? <p>{passwordMatch}</p>
+                        : null
+                    }
                   </div>
                 </div>
               </div>

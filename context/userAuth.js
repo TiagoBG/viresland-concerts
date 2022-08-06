@@ -1,8 +1,8 @@
 import { createContext, useEffect, useState } from 'react'
 
 const AuthContext = createContext({
-  user: null,
-  authReady: false
+  token: null,
+  user: null
 })
 
 export function AuthContextProvider({ children }) {
@@ -15,8 +15,7 @@ export function AuthContextProvider({ children }) {
     console.log('EFFECT IN CXT')
   }, [])
 
-  const login = (userLogged, token) => {
-    console.log(userLogged, token)
+  const login = (userLogged) => {
     setUser(userLogged)
   }
 

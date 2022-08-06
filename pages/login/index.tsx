@@ -1,5 +1,5 @@
-import LoginForm from '@/components/auth/Login'
 import Head from 'next/head'
+import LoginForm from '@/components/auth/Login'
 import React from 'react'
 
 function LoginPage() {

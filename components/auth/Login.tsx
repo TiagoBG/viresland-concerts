@@ -6,10 +6,10 @@ import axios from 'axios'
 import Link from 'next/link'
 import { signIn } from 'next-auth/react'
 import Swal from 'sweetalert2'
-import { useForm } from 'react-hook-form'
+import { appendErrors, useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
 
-import {setToken} from '../../utils/jwtMiddleware'
+import { setToken } from '../../utils/jwtMiddleware'
 import AuthContext from 'context/userAuth'
 import { useContext } from 'react'
 
@@ -18,11 +18,12 @@ function LoginForm() {
   const { register, handleSubmit, watch, formState: { errors } } = useForm()
   const router = useRouter()
 
-  const {user, login} = useContext(AuthContext)
+  const { user, login } = useContext(AuthContext)
 
   function loginValidation(res: any, data: any) {
     const loggedUser = res.data.rows.find((item:any) => item.email === data.email)
-    console.log(loggedUser, errors)
+
+    console.log(errors)
     if (loggedUser === undefined) {
       Swal.fire(
         'Something went wrong',
@@ -30,14 +31,14 @@ function LoginForm() {
         'error'
       )
     } else {
-      sessionStorage.setItem('pumpkin', setToken(res.data.rows))
-      login(loggedUser.username, setToken(res.data.rows))
+      sessionStorage.setItem('pumpkin', setToken(loggedUser))
+      login({ token: setToken(loggedUser),
+        username: loggedUser.username })
       router.replace('/shows')
     }
   }
 
   const loginHandler = (data: any) => {
-    console.log('VALIDATION HANDLER');
     axios.get('/api/getUsers').
       then((res) => {
         loginValidation(res, data)
@@ -64,8 +65,11 @@ function LoginForm() {
                       className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       id="login-email"
                       type="email"
-                      {...register('email')}
+                      {...register('email', { required: true })}
                     />
+                    {errors.email
+                      ? <p className="text-red-500 text-xs italic mt-2"> Email is not valid </p>
+                      : null}
                   </div>
                   <div className="col-span-6 sm:col-span-8">
                     <label className="block text-sm font-medium text-gray-700" htmlFor="password">Password</label>
@@ -74,8 +78,11 @@ function LoginForm() {
                       className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       id="password"
                       type="password"
-                      {...register('password')}
+                      {...register('password', { required: true })}
                     />
+                    {errors.email
+                      ? <p className="text-red-500 text-xs italic mt-2"> Password is not valid </p>
+                      : null}
                   </div>
                   <div className="col-span-6 sm:col-span-8 text-center">
                     <p className="text-sm font-medium leading-6 text-dark">Not registered? <span style={{ color: 'blue' }}><Link href="/signin">Sign In</Link></span></p>
