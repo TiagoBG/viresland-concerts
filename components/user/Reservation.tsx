@@ -17,8 +17,8 @@ function Reservation({ reservation }) {
         <p className="font-semibold text-md mb-2">{reservation.city}, {reservation.country}</p>
       </div>
       <div className="col-span-2">
-        <button className="inline-flex justify-center py-2 px-6 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-fuchsia-600 hover:bg-fuchsia-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-fuchsia-500 mx-4" onClick={console.log('EDIT')} type="button">Edit</button>
-        <button className="inline-flex justify-center py-2 px-6 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 mx-4" onClick={console.log('DELETE')} type="button">Delete</button>
+        <button className="inline-flex justify-center py-2 px-6 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-fuchsia-600 hover:bg-fuchsia-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-fuchsia-500 mx-4" onClick={() => console.log('EDIT', reservation.reservation_id)} type="button">Edit</button>
+        <button className="inline-flex justify-center py-2 px-6 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 mx-4" onClick={() => console.log('DELETE', reservation.reservation_id)} type="button">Delete</button>
       </div>
     </article>
   )

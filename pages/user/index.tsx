@@ -26,14 +26,12 @@ function User() {
     axios.post('/api/getReservations', { id: jwt.decode(user?.token)?.data.id.toString() }).
       then((res) => {
         setUserReservations(res.data.rows)
+        console.log(userReservations)
       }).
       catch((err) => console.log(err))
 
 
-  }, [
-    user,
-    router
-  ])
+  }, [])
 
   function ticketsHandler() {
     router.push('shows')
