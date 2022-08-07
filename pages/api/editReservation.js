@@ -5,8 +5,7 @@
 import connection from '../../db/db'
 
 export default async (req, res) => {
-  const query = `DELETE FROM reservations r WHERE r.id = ${req.body.id};
-                UPDATE shows s SET available_seats = available_seats + ${req.body.seats} WHERE s.id = ${req.body.show};`
+  const query = `UPDATE FROM reservations r WHERE r.id = ${req.body.id};`
 
   try {
     const result = await connection.query(query)
