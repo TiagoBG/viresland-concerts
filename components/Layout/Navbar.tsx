@@ -28,9 +28,14 @@ export default function Navbar() {
     setUserToken
   ] = useState<string | null>(null)
 
+  const { user } = useContext(AuthContext)
+
   const router = useRouter()
 
-  useEffect(() => setUserToken(sessionStorage.getItem('pumpkin')), [userToken])
+  useEffect(() => setUserToken(sessionStorage.getItem('pumpkin')), [
+    user,
+    userToken
+  ])
 
 
   const navigation = [
@@ -50,6 +55,8 @@ export default function Navbar() {
 
   const userSignout = () => {
     sessionStorage.removeItem('pumpkin')
+    setUserToken(null)
+    router.replace('/')
   }
 
 

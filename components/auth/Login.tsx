@@ -11,7 +11,7 @@ import { useRouter } from 'next/router'
 
 import { setToken } from '../../utils/jwtMiddleware'
 import AuthContext from 'context/userAuth'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 
 
 function LoginForm() {
@@ -20,11 +20,15 @@ function LoginForm() {
 
   const { user, login } = useContext(AuthContext)
 
+  useEffect(() => {
+    console.log()
+  }, [])
+
+
   function loginValidation(res: any, data: any) {
     const loggedUser = res.data.rows.find((item:any) => item.email === data.email)
 
-    console.log(errors)
-    if (loggedUser === undefined) {
+    if (loggedUser === undefined || data.password !== loggedUser.user_password) {
       Swal.fire(
         'Something went wrong',
         'Please check the credentials and try again later',

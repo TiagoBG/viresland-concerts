@@ -13,7 +13,6 @@ function Bands() {
     axios.get('/api/getBands').
       then((res) => {
         setArtists(res.data.rows)
-        console.log(res.data.rows)
       }).
       catch((err) => console.log(err))
   }, [])
