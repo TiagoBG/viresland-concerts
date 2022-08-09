@@ -1,7 +1,7 @@
 /* eslint-disable sort-imports */
 /* eslint-disable no-ternary */
 import AuthContext from 'context/userAuth'
-import Reservation from '@/components/user/Reservation'
+import Reservation from '@/components/reservation/Reservation'
 import axios from 'axios'
 import jwt from 'jsonwebtoken'
 import { useRouter } from 'next/router'
@@ -18,7 +18,7 @@ function User() {
   ] = useState(null)
 
   useEffect(() => {
-    if (user === null) {
+    if (sessionStorage.getItem('pumpkin') === null) {
       router.replace('/login')
     }
     console.log(jwt.decode(user?.token)?.data.id.toString(), 'RESERVATIONS AXIOS')

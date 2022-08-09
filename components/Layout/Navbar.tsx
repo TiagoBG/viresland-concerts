@@ -23,13 +23,14 @@ function classNames(...classes : any) {
 }
 
 export default function Navbar() {
+  const [
+    userToken,
+    setUserToken
+  ] = useState<string | null>(null)
 
-  const {user, logout} = useContext(AuthContext)
   const router = useRouter()
 
-  useEffect(() => {
-    console.log(user)
-  }, [])
+  useEffect(() => setUserToken(sessionStorage.getItem('pumpkin')), [userToken])
 
 
   const navigation = [
@@ -43,12 +44,12 @@ export default function Navbar() {
       current: router.pathname === '/bands' },
     { name: 'Log In',
       href: '/login',
-      requireAuth: user !== null,
+      requireAuth: userToken !== null,
       current: router.pathname === '/login' }
   ]
 
   const userSignout = () => {
-    console.log('SIGNING OUTTT')
+    sessionStorage.removeItem('pumpkin')
   }
 
 
@@ -109,7 +110,7 @@ export default function Navbar() {
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
 
                 {/* Profile dropdown */}
-                {user !== null ? (
+                {userToken !== null ? (
                   <Menu as="div" className="ml-3 relative">
                     <div>
                       <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
@@ -148,7 +149,7 @@ export default function Navbar() {
                           {({ active }) => (
                             <button
                               className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                              onClick={logout}
+                              onClick={userSignout}
                               type="button"
                             >
                               Sign out

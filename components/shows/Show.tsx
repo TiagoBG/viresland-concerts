@@ -1,7 +1,16 @@
 /* eslint-disable no-ternary */
+import { useRouter } from 'next/router'
 import ConcertIcon from '../../public/assets/images/concert.png'
 
 function Show({ show }) {
+
+  const router = useRouter()
+  const hash = window.btoa(`${Math.random()}hash`)
+
+  const ticketsHandler = (show) => {
+    console.log(show);
+    router.push(`/reservations/${hash}`)
+  }
 
   return (
     <div className="bg-gray-800 bg-opacity-70 text-white w-6/12 m-auto my-3 p-6 rounded-lg">
@@ -10,7 +19,7 @@ function Show({ show }) {
         <div className="mt-3 text-left">
           {parseInt(show.available_seats, 10) === 0
             ? <button className="inline-flex justify-center py-2 px-6 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600" disabled type="button">Sold Out</button>
-            : <button className="inline-flex justify-center py-2 px-6 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" type="button">Tickets</button>}
+            : <button className="inline-flex justify-center py-2 px-6 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" onClick={ticketsHandler} type="button">Tickets</button>}
         </div>
         <div className="text-left">
           <p className="text-sm flex text-left">
