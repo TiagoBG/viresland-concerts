@@ -5,12 +5,15 @@ import React, { useEffect, useState } from 'react'
 import Tickets from '../../public/assets/images/tickets.png'
 import { FaEdit } from 'react-icons/fa'
 import { MdDelete } from 'react-icons/md'
+import { useRouter } from 'next/router'
 
 function Reservation({ reservation }) {
 
+  const router = useRouter()
+
   useEffect(() => {
     console.log('CHANGE IN RESERVATION')
-  }, [reservation])
+  }, [])
 
 
   function deleteHandler(reservationId:number, reservationAmount: number, reservationShow: number) {
@@ -25,8 +28,11 @@ function Reservation({ reservation }) {
   }
 
   function editHandler(reservationId:number, reservationAmount:number, reservationShow: number) {
-    setShowModal(true)
     console.log('EDIT', reservationId, reservationAmount, reservationShow)
+    router.push({
+      pathname: '/reservations/r',
+      query: { data: JSON.stringify(reservation) }
+    })
   }
 
   return (

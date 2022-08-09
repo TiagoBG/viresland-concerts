@@ -21,18 +21,19 @@ function User() {
     if (sessionStorage.getItem('pumpkin') === null) {
       router.replace('/login')
     }
-    console.log(jwt.decode(user?.token)?.data.id.toString(), 'RESERVATIONS AXIOS')
+    console.log(jwt.decode(sessionStorage.getItem('pumpkin'))?.data.id.toString(), 'RESERVATIONS AXIOS')
+
+    if (userReservations === null) {
+      axios.post('/api/getReservations', { id: jwt.decode(sessionStorage.getItem('pumpkin'))?.data.id.toString() }).
+        then((res) => {
+          setUserReservations(res.data.rows)
+          console.log(userReservations)
+        }).
+        catch((err) => console.log(err))
+    }
 
 
-    axios.post('/api/getReservations', { id: jwt.decode(user?.token)?.data.id.toString() }).
-      then((res) => {
-        setUserReservations(res.data.rows)
-        console.log(userReservations)
-      }).
-      catch((err) => console.log(err))
-
-
-  }, [])
+  }, [userReservations])
 
   function ticketsHandler() {
     router.push('shows')

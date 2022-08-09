@@ -20,11 +20,6 @@ function LoginForm() {
 
   const { user, login } = useContext(AuthContext)
 
-  useEffect(() => {
-    console.log()
-  }, [])
-
-
   function loginValidation(res: any, data: any) {
     const loggedUser = res.data.rows.find((item:any) => item.email === data.email)
 

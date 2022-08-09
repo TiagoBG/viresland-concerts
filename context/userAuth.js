@@ -12,8 +12,8 @@ export function AuthContextProvider({ children }) {
   ] = useState(null)
 
   useEffect(() => {
-    console.log('EFFECT IN CXT')
-  }, [])
+    console.log('EFFECT IN CXT', user)
+  }, [user])
 
   const login = (userLogged) => {
     setUser(userLogged)
