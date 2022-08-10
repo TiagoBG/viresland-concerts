@@ -1,24 +1,17 @@
 /* eslint-disable react/jsx-no-undef */
 import Image from 'next/image'
+import TEAMLogo from '../../public/assets/images/Logo_Team_International.png'
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-800 text-white m-auto h-16">
-      <a
-        href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        Powered by{' '}
-        <span>
-          <Image
-            alt="Vercel Logo"
-            height={16}
-            src="/vercel.svg"
-            width={72}
-          />
-        </span>
-      </a>
+    <footer className="bg-gray-800 text-white m-auto h-16 items-center flex flex-row">
+      <img alt="TEAM International" className="lg:ml-8" src={TEAMLogo.src} width="80px"/>
+      <p className="text-center lg:text-lg lg:ml-48">
+        Powered by
+        <span className="text-yellow-400 font-semibold mx-2">
+          Viresland Concerts
+        </span>for TEAM's TGL program. © Copyright 2022
+      </p>
     </footer>
   )
 }

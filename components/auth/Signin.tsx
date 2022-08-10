@@ -1,9 +1,13 @@
+/* eslint-disable no-undefined */
 /* eslint-disable no-negated-condition */
 /* eslint-disable no-ternary */
 /* eslint-disable prefer-named-capture-group */
 import axios from 'axios'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import Swal from 'sweetalert2'
 
 function SignInForm() {
   const { register, handleSubmit, watch, formState: { errors } } = useForm()
@@ -12,14 +16,38 @@ function SignInForm() {
     setPasswordMatch
   ] = useState('')
 
+  const router = useRouter()
+
   const signinHandler = (data: any) => {
+    console.log(data, '34' === '34')
     if (data.user_password === data.confirm_password) {
-      setPasswordMatch('Passwords do nor match')
       axios.post('/api/users', data).
         then((res) => {
-          console.log(res, 'axios')
+          console.log(res)
+          Swal.fire({
+            title: 'Sign up successfully',
+            icon: 'success',
+            html: '<p>Please log in to access to your account</p>',
+            confirmButtonText: 'OK'
+
+          }).then(() => {
+            router.replace('/login')
+          })
         }).
-        catch((err) => console.log(err))
+        catch((err) => {
+          console.log(err)
+          Swal.fire({
+            title: `${err.statusCode === undefined
+              ? 'Oops :('
+              : err.statusCode} Something went wrong`,
+            icon: 'error',
+            html: '<p>Please contact rthe admin and try again later</p>',
+            confirmButtonText: 'OK'
+
+          }).then(() => {
+            router.replace('/login')
+          })
+        })
     }
   }
 
@@ -32,6 +60,9 @@ function SignInForm() {
           <div className="px-4 sm:px-0 mt-6 ml-6">
             <h3 className="text-lg font-medium leading-6 text-white">Sign In</h3>
             <p className="mt-6 text-sm text-white">Register to get tickets and enjoy the party</p>
+          </div>
+          <div className="mt-48 px-6 py-4 w-5/6">
+            <p className="text-sm font-medium leading-6 text-white">Already registered? <span className="text-pink-400 font-bold"><Link href="/login">Log In</Link></span></p>
           </div>
         </div>
         <div className="mt-5 md:mt-0 md:col-span-2">
@@ -120,8 +151,7 @@ function SignInForm() {
                       className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       id="password"
                       type="password"
-                      {...register('confirm_password', { required: true,
-                        validate: (value) => console.log(value, ...register) || 'The passwords do not match' })}
+                      {...register('confirm_password', { required: true })}
                     />
                     {errors.confirm_password
                       ? <p className="text-red-500 text-xs italic mt-2"> Passwords do not match. Please type the right password </p>
@@ -133,8 +163,11 @@ function SignInForm() {
                     }
                   </div>
                 </div>
+                <div className="col-span-6 sm:col-span-8 text-center pt-6">
+                  <p className="text-sm font-medium text-gray-400">*We value your privacy and will never share your information with anyone</p>
+                </div>
               </div>
-              <div className="px-4 py-3 text-center bg-white sm:px-6">
+              <div className="px-4 pb-3 text-center bg-white sm:px-6">
                 <button className="inline-flex justify-center py-2 px-6 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" type="submit">Sign In</button>
               </div>
             </div>

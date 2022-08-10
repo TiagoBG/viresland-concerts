@@ -84,7 +84,7 @@ function LoginForm() {
                       : null}
                   </div>
                   <div className="col-span-6 sm:col-span-8 text-center">
-                    <p className="text-sm font-medium leading-6 text-dark">Not registered? <span style={{ color: 'blue' }}><Link href="/signin">Sign In</Link></span></p>
+                    <p className="text-sm font-medium leading-6 text-dark">Not registered? <span className="text-blue-700 font-bold"><Link href="/signin">Sign In</Link></span></p>
                   </div>
                 </div>
               </div>
