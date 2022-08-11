@@ -7,11 +7,15 @@ function ReservationId() {
   const [
     reservation,
     setReservation
-  ] = useState<typeof ReservationI | null>(null)
+  ] = useState<typeof ReservationI | null | any>(null)
 
   const router = useRouter()
 
-  useEffect(() => setReservation(JSON.parse(router.query.data)), [reservation])
+  useEffect(() => {
+    if (reservation === null) {
+      setReservation(JSON.parse(router.query.data))
+    }
+  }, [reservation])
 
 
   function backButtonHandler() {
