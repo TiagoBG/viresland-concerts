@@ -1,6 +1,7 @@
 /* eslint-disable no-ternary */
 import { useRouter } from 'next/router'
 import ConcertIcon from '../../public/assets/images/concert.png'
+import { dateFormat } from '../../utils/dateFormating'
 
 function Show({ show }) {
 
@@ -11,7 +12,8 @@ function Show({ show }) {
     console.log(show)
     router.push({
       pathname: '/reservations/r',
-      query: { data: JSON.stringify(show) }
+      query: { data: JSON.stringify(show),
+        isNew: true }
     })
   }
 
@@ -26,14 +28,19 @@ function Show({ show }) {
         </div>
         <div className="sm:text-left text-center py-1">
           <p className="text-sm sm:flex sm:text-left text-center">
-            <img alt="concert-icon" className="hidden sm:flex" src={ConcertIcon.src} width="20px" />
+            <img
+              alt="concert-icon"
+              className="hidden sm:flex"
+              src={ConcertIcon.src}
+              width="20px"
+            />
             <span className="ml-2">{show.venue_name}</span>
           </p>
           <p className="font-bold text-xl mb-2">{show.band_name}</p>
         </div>
         <div className="text-md mt-3 sm:text-right text-center">
           <p className="leading-none">{show.city}, <span>{show.country}</span></p>
-          <p className="">{show.show_date.substring(0, 10)}</p>
+          <p className="">{dateFormat(show.show_date)}</p>
         </div>
       </div>
     </div>

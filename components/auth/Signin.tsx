@@ -19,11 +19,9 @@ function SignInForm() {
   const router = useRouter()
 
   const signinHandler = (data: any) => {
-    console.log(data, '34' === '34')
     if (data.user_password === data.confirm_password) {
       axios.post('/api/users', data).
         then((res) => {
-          console.log(res)
           Swal.fire({
             title: 'Sign up successfully',
             icon: 'success',
@@ -35,7 +33,6 @@ function SignInForm() {
           })
         }).
         catch((err) => {
-          console.log(err)
           Swal.fire({
             title: `${err.statusCode === undefined
               ? 'Oops :('

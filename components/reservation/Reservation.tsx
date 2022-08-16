@@ -6,6 +6,7 @@ import Tickets from '../../public/assets/images/tickets.png'
 import { FaEdit } from 'react-icons/fa'
 import { MdDelete } from 'react-icons/md'
 import { useRouter } from 'next/router'
+import { dateFormat } from '../../utils/dateFormating'
 
 function Reservation({ reservation }) {
 
@@ -45,7 +46,7 @@ function Reservation({ reservation }) {
         <p className="font-bold text-center text-2xl mb-2">{reservation.band_name}</p>
       </div>
       <div className="grid grid-flow-row row-span-2 col-span-2">
-        <p className="font-semibold text-xl mb-2">{reservation.show_date.substring(0, 10)}</p>
+        <p className="font-semibold text-xl mb-2">{dateFormat(reservation.show_date)}</p>
         <p className="font-semibold text-xl mb-2">{reservation.venue_name}</p>
         <p className="font-semibold text-md mb-2">{reservation.city}, {reservation.country}</p>
       </div>

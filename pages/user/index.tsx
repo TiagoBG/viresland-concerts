@@ -33,10 +33,18 @@ function User() {
     }
 
 
-  }, [userReservations])
+  }, [userReservations, userReservations?.length])
 
   function ticketsHandler() {
     router.push('shows')
+  }
+
+  function onDelete(){
+
+  }
+
+  function onEdit(){
+
   }
 
   return (
@@ -45,7 +53,7 @@ function User() {
       <h3 className="font-semibold text-2xl m-4">Your tickets</h3>
       <div className="flex flex-wrap">
         {userReservations?.length > 0
-          ? userReservations?.map((reservation: { id: Key | null | undefined }) => <Reservation key={reservation.id} reservation={reservation} />)
+          ? userReservations?.map((reservation: { id: Key | null | undefined }) => <Reservation key={reservation.id} handleDelete={onDelete} handleEdit={onEdit} reservation={reservation} />)
           : <p>No tickets purchased yet</p> }
       </div>
       <div className="text-center justify-center">

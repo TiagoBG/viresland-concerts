@@ -145,7 +145,7 @@ export default function Navbar() {
                           {({ active }) => (
                             <Link href="/user">
                               <p
-                                className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                                className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700 hover:cursor-pointer hover:bg-gray-100')}
                               >
                                 Your Reservations
                               </p>
@@ -155,7 +155,7 @@ export default function Navbar() {
                         <Menu.Item>
                           {({ active }) => (
                             <button
-                              className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                              className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 w-full text-sm text-gray-700 text-left hover:cursor-pointer hover:bg-gray-100')}
                               onClick={userSignout}
                               type="button"
                             >
