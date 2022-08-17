@@ -1,5 +1,3 @@
-/* DELETE FROM reservations r WHERE r.id = 1; */
-
 /* eslint-disable import/no-anonymous-default-export */
 /* eslint-disable sort-keys */
 import connection from '../../db/db'

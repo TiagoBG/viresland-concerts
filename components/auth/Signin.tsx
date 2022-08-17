@@ -41,8 +41,6 @@ function SignInForm() {
             html: '<p>Please contact rthe admin and try again later</p>',
             confirmButtonText: 'OK'
 
-          }).then(() => {
-            router.replace('/login')
           })
         })
     }

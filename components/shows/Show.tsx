@@ -9,7 +9,6 @@ function Show({ show }) {
   const hash = window.btoa(`${Math.random()}hash`)
 
   const ticketsHandler = (show) => {
-    console.log(show)
     router.push({
       pathname: '/reservations/r',
       query: { data: JSON.stringify(show),

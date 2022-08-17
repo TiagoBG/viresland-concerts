@@ -17,12 +17,14 @@ function User() {
     setUserReservations
   ] = useState(null)
 
+  const [loggedUser, setLoggedUser] = useState(null)
+
   useEffect(() => {
     if (sessionStorage.getItem('pumpkin') === null) {
       router.replace('/login')
     }
-    console.log(jwt.decode(sessionStorage.getItem('pumpkin'))?.data.id.toString(), 'RESERVATIONS AXIOS')
 
+    setLoggedUser(jwt.decode(sessionStorage.getItem('pumpkin'))?.data.username.toString())
     if (userReservations === null) {
       axios.post('/api/getReservations', { id: jwt.decode(sessionStorage.getItem('pumpkin'))?.data.id.toString() }).
         then((res) => {
@@ -48,8 +50,8 @@ function User() {
   }
 
   return (
-    <div className="text-white">
-      <h1 className="font-bold text-3xl text-center mb-2">Welcome {jwt.decode(user?.token)?.data.username}</h1>
+    <div className="text-white bg-gray-700 bg-opacity-80 w-11/12 m-auto p-10 rounded-lg">
+      <h1 className="font-bold text-3xl text-center mb-2">Welcome {loggedUser}</h1>
       <h3 className="font-semibold text-2xl m-4">Your tickets</h3>
       <div className="flex flex-wrap">
         {userReservations?.length > 0

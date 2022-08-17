@@ -1,3 +1,8 @@
+/* eslint-disable sort-keys */
+/* eslint-disable camelcase */
+/* eslint-disable no-negated-condition */
+/* eslint-disable no-ternary */
+/* eslint-disable no-undefined */
 /* eslint-disable react/jsx-no-bind */
 import axios from 'axios'
 import { useRouter, withRouter } from 'next/router'
@@ -19,13 +24,36 @@ function ReservationId() {
   const ticketsAmountRef = useRef(0)
 
   useEffect(() => {
+    console.log(JSON.parse(router.query.data))
     if (reservation === null) {
       setReservation(JSON.parse(router.query.data))
     }
-  }, [reservation])
+  }, [reservation, router.query.data])
 
   function reservationHandler() {
-    if (router.query.isNew) {
+
+    if (!sessionStorage.getItem('pumpkin')) {
+      Swal.fire({
+        title: 'You need to be logged in!',
+        icon: 'error',
+        html: '<p>For tickets reservation you have to be logged first</p>',
+        confirmButtonText: 'OK'
+
+      }).then(() => {
+        router.replace('/login')
+      })
+    }
+
+    if (!reservation.available_seats || ticketsAmountRef.current.valueAsNumber > reservation.available_seats) {
+      Swal.fire({
+        title: 'Not available seats!',
+        icon: 'error',
+        html: '<p>You cannot reserve more seats than the seats left amount</p>',
+        confirmButtonText: 'OK'
+      })
+    }
+
+    if (router.query.isNew && sessionStorage.getItem('pumpkin') !== null) {
       axios.post('/api/createReservations', {
         id_user: jwt.decode(sessionStorage.getItem('pumpkin'))?.data.id,
         id_show: reservation.id,
@@ -40,7 +68,7 @@ function ReservationId() {
             confirmButtonText: 'OK'
 
           }).then(() => {
-            router.replace('/shows')
+            router.replace('/user')
           })
         }).
         catch((err) => {
@@ -52,13 +80,41 @@ function ReservationId() {
             icon: 'error',
             html: '<p>Please contact the admin and try again later</p>',
             confirmButtonText: 'OK'
-
-          }).then(() => {
-            router.replace('/login')
           })
         })
-    }else{
-      console.log('UPDATINGGG')
+    }
+    if (sessionStorage.getItem('pumpkin') !== null) {
+      axios.patch('/api/updateReservation', {
+        user: jwt.decode(sessionStorage.getItem('pumpkin'))?.data.id,
+        reservation: reservation.reservation_id,
+        show: reservation.show_id,
+        tickets: ticketsAmountRef.current.valueAsNumber,
+        prevTickets: reservation.tickets_amount,
+        seats: reservation.available_seats
+      }).
+        then((res) => {
+          console.log(res)
+          Swal.fire({
+            title: 'See you there!',
+            icon: 'success',
+            html: '<p>Tickets have been successfully updated</p>',
+            confirmButtonText: 'OK'
+
+          }).then(() => {
+            router.replace('/user')
+          })
+        }).
+        catch((err) => {
+          console.log(err)
+          Swal.fire({
+            title: `${err.statusCode === undefined
+              ? 'Oops :('
+              : err.statusCode} Something went wrong`,
+            icon: 'error',
+            html: '<p>Apparently you cannot update your reservation right now. Please try again later</p>',
+            confirmButtonText: 'OK'
+          })
+        })
     }
   }
 
@@ -75,13 +131,20 @@ function ReservationId() {
           <h1 className="font-bold text-3xl my-2 mb-6">{reservation?.band_name}</h1>
           <p className="font-semibold text-md my-2">{dateFormat(reservation?.show_date)}</p>
           <p className="font-semibold text-md my-2">{reservation?.venue_name} - {reservation?.city}, {reservation?.country}</p>
-          <p className="font-semibold text-xl my-2 mb-8">{reservation?.available_seats} seats left</p>
+          <p className="font-semibold text-2xl text-yellow-400 my-2 mb-8">{!reservation?.available_seats
+            ? 'NO'
+            : reservation?.available_seats} seats left
+          </p>
           <div className="flex justify-center items">
             <input
               className="w-1/4 text-black font-bold text-2xl out-of-range:border-red-500 out-of-range:border-2 out-of-range:text-red-500"
               defaultValue={reservation?.tickets_amount}
-              max={reservation?.available_seats}
-              min="1"
+              max={!reservation?.available_seats
+                ? 0
+                : reservation?.available_seats}
+              min={!reservation?.available_seats
+                ? 0
+                : 1}
               ref={ticketsAmountRef}
               type="number"
             />
