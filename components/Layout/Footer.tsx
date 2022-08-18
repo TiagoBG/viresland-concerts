@@ -8,7 +8,7 @@ export default function Footer() {
       <img alt="TEAM International" className="lg:ml-8" src={TEAMLogo.src} width="80px"/>
       <p className="text-center lg:text-lg md:mr-12">
         Powered by
-        <span className="text-yellow-400 font-semibold mx-2">
+        <span className="text-yellow-400 font-semibold mx-2" id="footer-company-name">
           Viresland Concerts
         </span>for TEAM's TGL program. © Copyright 2022
       </p>
