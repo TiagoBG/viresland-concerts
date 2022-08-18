@@ -16,7 +16,7 @@ To execute the project locally in your terminal, run the following command:
 ```bash
 npm run dev
 ```
-## Run the project locally
+## Run tests
 
 To execute the tests in your terminal, run the following command:
 
